@@ -5,7 +5,11 @@ class StringCalculator
     return numbers.to_i if numbers.length == 1
 
     delimiter, numbers = extract_delimiter(numbers)
-    split_numbers(numbers, delimiter).map(&:to_i).reduce(:+)
+    numbers_array = split_numbers(numbers, delimiter).map(&:to_i)
+    
+    check_for_negatives(numbers_array)
+    
+    numbers_array.reduce(:+)
   end
 
   private
@@ -22,5 +26,12 @@ class StringCalculator
       delimiter = /,|\n/
     end
     [delimiter, numbers]
+  end
+
+  def self.check_for_negatives(numbers)
+    negatives = numbers.select { |num| num < 0 }
+    unless negatives.empty?
+      raise "negative numbers not allowed: #{negatives.join(',')}"
+    end
   end
 end
