@@ -9,6 +9,6 @@ class StringCalculator
   private
 
   def self.split_numbers(numbers)
-    numbers.split(',')
+    numbers.split(/,|\n/)
   end
 end
